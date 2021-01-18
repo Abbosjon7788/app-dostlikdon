@@ -9,7 +9,8 @@ class Login extends Component {
     render() {
 
         const login = (event, values) => {
-            this.props.loginUser(values);
+            console.log(this.props)
+            this.props.loginUser(values, this.props.history);
         }
 
         return (
@@ -34,7 +35,7 @@ class Login extends Component {
                                             required
                                         />
 
-                                        <button type='submit' className='btn btn-success btn-block'>Login</button>
+                                        <button type='submit' disabled={this.props.isLoading} className='btn btn-success btn-block'> {this.props.isLoading ? <span className='spinner-border spinner-border-sm' /> : ""} Login</button>
                                     </AvForm>
                                 </div>
                             </div>
@@ -47,4 +48,11 @@ class Login extends Component {
     }
 }
 
-export default connect(null, {loginUser})(Login);
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
+        isLoading: state.login.isLoading
+    }
+}
+
+export default connect(mapStateToProps, {loginUser})(Login);

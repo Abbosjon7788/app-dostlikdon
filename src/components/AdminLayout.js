@@ -21,8 +21,8 @@ class AdminLayout extends Component {
                         </div>
 
                         <ul className='nav flex-column mt-4'>
-                            <li className='nav-item'><Link className='nav-link text-white' to="/admin">Yangiliklar</Link></li>
-                            <li className='nav-item'><Link className='nav-link text-white' to="/admin">Menyular</Link></li>
+                            <li className='nav-item'><Link className='nav-link text-white' to="/admin/news">Yangiliklar</Link></li>
+                            <li className='nav-item'><Link className='nav-link text-white' to="/admin/menus">Menyular</Link></li>
                             <li className='nav-item'><Link className='nav-link text-white' to="/admin">Menyular</Link></li>
                             <li className='nav-item'><Link className='nav-link text-white' to="/admin">Menyular</Link></li>
                             <li className='nav-item'><Link className='nav-link text-white' to="/admin">Menyular</Link></li>
@@ -32,7 +32,7 @@ class AdminLayout extends Component {
 
                     </div>
                     <div className="admin-content-right">
-
+                        {this.props.children}
                     </div>
                 </div>
             </div>
