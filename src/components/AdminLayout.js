@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
+import {TOKEN_NAME} from "../tools/constants";
 
 class AdminLayout extends Component {
     render() {
@@ -28,6 +29,7 @@ class AdminLayout extends Component {
                             <li className='nav-item'><Link className='nav-link text-white' to="/admin">Menyular</Link></li>
                             <li className='nav-item'><Link className='nav-link text-white' to="/admin">Menyular</Link></li>
                             <li className='nav-item'><Link className='nav-link text-white' to="/admin">Menyular</Link></li>
+                            <li className='nav-item mt-4'><Link className='nav-link text-white' to="/" onClick={() => {localStorage.removeItem(TOKEN_NAME)}}>Chiqish</Link></li>
                         </ul>
 
                     </div>

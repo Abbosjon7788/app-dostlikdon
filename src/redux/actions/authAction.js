@@ -11,7 +11,6 @@ export function loginUser(data, history) {
        })
        axios.post(API_PATH + "auth/login", data)
            .then((res) => {
-               console.log(res);
                localStorage.setItem(TOKEN_NAME, res.data.tokenType + " " + res.data.accessToken);
                dispatch({type: LOGIN});
                history.push("/admin");

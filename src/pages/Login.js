@@ -9,7 +9,7 @@ class Login extends Component {
     render() {
 
         const login = (event, values) => {
-            console.log(this.props)
+
             this.props.loginUser(values, this.props.history);
         }
 

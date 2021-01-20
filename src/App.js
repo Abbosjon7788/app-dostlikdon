@@ -6,6 +6,8 @@ import Admin from './pages/Admin';
 import {ToastContainer} from 'react-toastify';
 import AdminNews from "./components/AdminNews";
 import AdminMenus from "./components/AdminMenus";
+import NotFound from "./components/NotFound";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -15,9 +17,11 @@ function App() {
             <Switch>
                 <Route exact path='/' component={Home}/>
                 <Route exact path='/login' component={Login}/>
-                <Route exact path='/admin' component={Admin}/>
-                <Route exact path='/admin/news' component={AdminNews}/>
-                <Route exact path='/admin/menus' component={AdminMenus}/>
+                <PrivateRoute exact path='/admin' component={Admin}/>
+                <PrivateRoute exact path='/admin/news' component={AdminNews}/>
+                <PrivateRoute exact path='/admin/menus' component={AdminMenus}/>
+
+                <Route component={NotFound}/>
             </Switch>
         </BrowserRouter>
         <ToastContainer/>
