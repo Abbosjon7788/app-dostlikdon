@@ -4,7 +4,7 @@ import {Button, Modal, ModalBody, ModalFooter} from "reactstrap";
 import {connect} from "react-redux";
 import {updateState} from "../redux/actions/adminNewsAction";
 import {AvForm, AvField} from 'availity-reactstrap-validation';
-import {addMenu, getMenus} from "../redux/actions/adminMenuAction";
+import {addMenu, deleteMenu, getMenus} from "../redux/actions/adminMenuAction";
 
 class AdminMenus extends Component {
 
@@ -15,6 +15,9 @@ class AdminMenus extends Component {
     render() {
         const changeModal = () => {
             this.props.updateState({modalOpen: !this.props.modalOpen})
+        }
+        const changeDeleteModal = () => {
+            this.props.updateState({deleteModalOpen: !this.props.deleteModalOpen})
         }
         const generateUrl = (text) => text.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
 
@@ -36,9 +39,42 @@ class AdminMenus extends Component {
                             <Button type='button' color='success' onClick={changeModal}>Qo'shish</Button>
                         </div>
                     </div>
-                    <Modal isOpen={this.props.modalOpen} toggle={changeModal}>
-                        <AvForm onValidSubmit={saveMenu}>
+
+                    <table className='table table-striped table-hover mt-4'>
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Name (uz)</th>
+                                <th>Name (ru)</th>
+                                <th>Name (en)</th>
+                                <th>Parent menu</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {this.props.menus.map((item, index) => (
+                            <tr>
+                               <td>{(index + 1)}</td>
+                               <td>{item.nameUz}</td>
+                               <td>{item.nameRu}</td>
+                               <td>{item.nameEn}</td>
+                               <td></td>
+                                <td>
+                                    <button type='button' className='btn btn-primary mr-2' onClick={() => {this.props.updateState({selectedMenu: item}); changeModal()}}>E</button>
+                                    <button type='button' className='btn btn-danger' onClick={() => {this.props.updateState({selectedIdForDelete: item.id});changeDeleteModal()}}>D</button>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+
+                    <Modal isOpen={this.props.modalOpen} toggle={() => {this.props.updateState({selectedMenu: {}});changeModal()}}>
+                        <AvForm onValidSubmit={saveMenu} model={this.props.selectedMenu}>
                             <ModalBody>
+                                {this.props.selectedMenu.id ?
+                                    <AvField name="id" value={this.props.selectedMenu.id} className="d-none"/>
+                                    : ""
+                                }
                                 <AvField
                                     name="nameUz"
                                     type="text"
@@ -81,9 +117,18 @@ class AdminMenus extends Component {
                             </ModalBody>
                             <ModalFooter>
                                 <Button type="submit" color="success">Save</Button>
-                                <Button type="button" onClick={changeModal}>Close</Button>
+                                <Button type="button" onClick={() => {this.props.updateState({selectedMenu: {}});changeModal()}}>Close</Button>
                             </ModalFooter>
                         </AvForm>
+                    </Modal>
+                    <Modal isOpen={this.props.deleteModalOpen} toggle={changeDeleteModal}>
+                        <ModalBody>
+                            <h5>Rostdan ham o'chirmoqchimisiz?</h5>
+                        </ModalBody>
+                        <ModalFooter>
+                            <button type='button' className='btn btn-danger' onClick={() => {this.props.deleteMenu(this.props.selectedIdForDelete)}}>Ha</button>
+                            <button type='button' className='btn btn-secondary' onClick={changeDeleteModal}>Yo'q</button>
+                        </ModalFooter>
                     </Modal>
                 </div>
             </AdminLayout>
@@ -94,8 +139,12 @@ class AdminMenus extends Component {
 const mapStateToProps = (state) => {
     return {
         modalOpen: state.menu.modalOpen,
+        deleteModalOpen: state.menu.deleteModalOpen,
         isSubMenu: state.menu.isSubMenu,
-        generatedUrl: state.menu.generatedUrl
+        generatedUrl: state.menu.generatedUrl,
+        menus: state.menu.menus,
+        selectedIdForDelete: state.menu.selectedIdForDelete,
+        selectedMenu: state.menu.selectedMenu
     }
 }
-export default connect(mapStateToProps, {updateState, addMenu, getMenus})(AdminMenus);
+export default connect(mapStateToProps, {updateState, addMenu, getMenus, deleteMenu})(AdminMenus);

@@ -4,7 +4,10 @@ const initialState = {
     modalOpen: false,
     isSubMenu: false,
     generatedUrl: "",
-    menus: []
+    menus: [],
+    deleteModalOpen: false,
+    selectedIdForDelete: null,
+    selectedMenu: {}
 }
 
 export const adminMenusReducer = (state= initialState, action) => {

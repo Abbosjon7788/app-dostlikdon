@@ -1,6 +1,7 @@
 import {UPDATE_STATE} from "../actionTypes/adminNewsActionType";
 import axios from "axios";
 import {API_PATH} from "../../tools/constants";
+import {toast} from "react-toastify";
 
 
 export function updateState (data){
@@ -14,7 +15,19 @@ export function addMenu(data){
     return function (dispatch){
         axios.post(API_PATH + "menu", data)
             .then((res) => {
-                console.log(res);
+                if (res.data.success){
+                    toast.success(res.data.message);
+                    dispatch(getMenus());
+                    dispatch({
+                        type: UPDATE_STATE,
+                        payload: {
+                            modalOpen: false,
+                            selectedMenu: {}
+                        }
+                    })
+                } else {
+                    toast.error(res.data.message);
+                }
             })
     }
 }
@@ -24,6 +37,21 @@ export function getMenus(){
         axios.get(API_PATH + "menu")
             .then((res) => {
                 dispatch(updateState({menus: res.data.data}))
+            })
+    }
+}
+
+export function deleteMenu(id){
+    return function (dispatch){
+        axios.delete(API_PATH + "menu/" + id)
+            .then((res) => {
+                if (res.data.success){
+                    toast.success(res.data.message);
+                    dispatch(getMenus());
+                    dispatch({type: UPDATE_STATE, payload: {deleteModalOpen: false}})
+                } else {
+                    toast.error("Xatolik!");
+                }
             })
     }
 }
