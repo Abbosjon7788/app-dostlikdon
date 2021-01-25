@@ -4,12 +4,12 @@ import {Button, Modal, ModalBody, ModalFooter} from "reactstrap";
 import {connect} from "react-redux";
 import {updateState} from "../redux/actions/adminNewsAction";
 import {AvForm, AvField} from 'availity-reactstrap-validation';
-import {addMenu, deleteMenu, getMenus} from "../redux/actions/adminMenuAction";
+import {addMenu, deleteMenu, getMenus, getAllMenus} from "../redux/actions/adminMenuAction";
 
 class AdminMenus extends Component {
 
     componentDidMount() {
-        this.props.getMenus();
+        this.props.getAllMenus();
     }
 
     render() {
@@ -58,7 +58,7 @@ class AdminMenus extends Component {
                                <td>{item.nameUz}</td>
                                <td>{item.nameRu}</td>
                                <td>{item.nameEn}</td>
-                               <td></td>
+                               <td>{item.parentMenuName}</td>
                                 <td>
                                     <button type='button' className='btn btn-primary mr-2' onClick={() => {this.props.updateState({selectedMenu: item}); changeModal()}}>E</button>
                                     <button type='button' className='btn btn-danger' onClick={() => {this.props.updateState({selectedIdForDelete: item.id});changeDeleteModal()}}>D</button>
@@ -105,8 +105,9 @@ class AdminMenus extends Component {
                                 {this.props.isSubMenu ?
                                     <>
                                         <AvField name="parentId" type="select" label="Parent menu">
-                                            <option value="1">Bosh sahifa</option>
-                                            <option value="2">Struktura</option>
+                                            {this.props.menus.map((item) => (
+                                                <option value={item.id}>{item.nameUz}</option>
+                                            ))}
                                         </AvField>
                                         <AvField name="url" type="text" value={this.props.generatedUrl} label="Url"/>
                                     </>
@@ -147,4 +148,4 @@ const mapStateToProps = (state) => {
         selectedMenu: state.menu.selectedMenu
     }
 }
-export default connect(mapStateToProps, {updateState, addMenu, getMenus, deleteMenu})(AdminMenus);
+export default connect(mapStateToProps, {updateState, addMenu, getMenus, deleteMenu, getAllMenus})(AdminMenus);

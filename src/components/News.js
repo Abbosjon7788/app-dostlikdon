@@ -9,7 +9,7 @@ import {
     CARD_2_DESCRIPTION,
     CARD_2_SRC,
     CARD_2_TITLE, CARD_3_DESCRIPTION, CARD_3_SRC, CARD_3_TITLE
-} from "../tools/Constants";
+} from "../tools/constants";
 
 
 class News extends Component {

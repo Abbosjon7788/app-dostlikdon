@@ -17,7 +17,7 @@ export function addMenu(data){
             .then((res) => {
                 if (res.data.success){
                     toast.success(res.data.message);
-                    dispatch(getMenus());
+                    dispatch(getAllMenus());
                     dispatch({
                         type: UPDATE_STATE,
                         payload: {
@@ -35,6 +35,15 @@ export function addMenu(data){
 export function getMenus(){
     return function (dispatch){
         axios.get(API_PATH + "menu")
+            .then((res) => {
+                dispatch(updateState({menus: res.data.data}))
+            })
+    }
+}
+
+export function getAllMenus(){
+    return function (dispatch){
+        axios.get(API_PATH + "menu/all")
             .then((res) => {
                 dispatch(updateState({menus: res.data.data}))
             })

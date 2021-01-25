@@ -7,7 +7,7 @@ const NotFound = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-4 offset-4 my-5 text-center">
-                        <img src="404.png" alt="" className='w-100'/>
+                        <img src="/404.png" alt="" className='w-100'/>
 
                         <h4>Bunday sahifa mavjud emas!</h4>
 

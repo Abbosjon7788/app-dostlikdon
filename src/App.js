@@ -8,6 +8,7 @@ import AdminNews from "./components/AdminNews";
 import AdminMenus from "./components/AdminMenus";
 import NotFound from "./components/NotFound";
 import PrivateRoute from "./components/PrivateRoute";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
 
             <Switch>
                 <Route exact path='/' component={Home}/>
+                <Route exact path='/category/:url' component={CategoryPage}/>
                 <Route exact path='/login' component={Login}/>
                 <PrivateRoute exact path='/admin' component={Admin}/>
                 <PrivateRoute exact path='/admin/news' component={AdminNews}/>

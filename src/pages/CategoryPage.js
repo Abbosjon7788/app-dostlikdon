@@ -1,22 +1,20 @@
 import React, {Component} from 'react';
 import TopTitle from "../components/TopTitle";
 import NavbarPart from "../components/NavbarPart";
-import HomeCarousel from "../components/HomeCarousel";
 import News from "../components/News";
-import NewsCompany from "../components/NewsCompany";
 import Complaint from "../components/Complaint";
-import '../main.css';
 import FooterPart from "../components/FooterPart";
-class Home extends Component {
+
+class CategoryPage extends Component {
     render() {
         return (
             <div>
-
                 <TopTitle/>
                 <NavbarPart/>
-                <HomeCarousel/>
+
                 <News/>
-                <NewsCompany/>
+
+
                 <Complaint/>
                 <FooterPart/>
             </div>
@@ -24,4 +22,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default CategoryPage;

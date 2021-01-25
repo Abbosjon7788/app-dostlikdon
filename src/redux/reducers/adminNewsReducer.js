@@ -1,7 +1,8 @@
 import {UPDATE_STATE} from "../actionTypes/adminNewsActionType";
 
 const initialState = {
-    modalOpen: false
+    modalOpen: false,
+    selectedImage: ""
 }
 
 export const adminNewsReducer = (state= initialState, action) => {

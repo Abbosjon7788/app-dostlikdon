@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getMenus} from "../redux/actions/adminMenuAction";
+import {Link} from 'react-router-dom'
 
 class NavbarPart extends Component {
 
@@ -24,13 +25,30 @@ class NavbarPart extends Component {
 
                                 {this.props.menus.map((item) => (
                                     <li className="nav-item mr-4">
-                                        <a className="nav-link text-dark" href="#">{item.nameUz}</a>
+                                        <a className="nav-link" href="#">{item.nameUz}</a>
+                                        {item.submenus.length > 0 ?
+                                            <div className="sub-items">
+                                                <table className="table cursor-pointer">
+                                                    <tbody>
+                                                    {item.submenus.map(item2 => (
+                                                        <tr>
+                                                            <td><Link to={"/category/" + item2.url}>{item2.nameUz}</Link></td>
+                                                        </tr>
+                                                    ))}
+
+
+                                                    </tbody>
+
+                                                </table>
+                                            </div> : ""
+                                        }
+
                                     </li>
                                 ))}
 
 
 
-                                
+
 
 
                             </ul>

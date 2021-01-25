@@ -7,7 +7,7 @@ import {
     COMPANY_CARD_2_DESCRIPTION,
     COMPANY_CARD_2_SRC,
     COMPANY_CARD_2_TITLE, COMPANY_CARD_3_DESCRIPTION, COMPANY_CARD_3_SRC, COMPANY_CARD_3_TITLE
-} from "../tools/Constants";
+} from "../tools/constants";
 import Slider from "react-slick";
 
 class NewsCompany extends Component {
